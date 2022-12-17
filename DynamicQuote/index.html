@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotes</title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <div id="quotes"></div>
+    <div id="author"></div>
+    <button id="newQ">New Quotes</button>
+    <button id="shareit">Facebook</button>
+
+    <script>
+        const qoutes = document.getElementById("quotes");
+        const author = document.getElementById("author");
+        const newq = document.getElementById("new");
+        const shareit = document.getElementById('shareit')
+        let realData = "";
+        let quotesData = "";
+
+        const shareNow = () => {
+            let share = 'https://developers.facebook.com/docs/sharing/reference/share-dialog';
+            window.open(share)
+        }
+
+        const getNewQoutes = () => {
+            let rnum = Math.floor(Math.random() * 1643);
+            console.log(realData[rnum]);
+            quotesData = realData[rnum];
+            qoutes.innerHTML = `${quotesData.text}`
+            quotesData.author == null ? (author.innerHTML = "UnKnown") : (author.innerHTML = `${quotesData.author}`);
+
+        };
+        const getQuotes = async () => {
+            const api = 'https://type.fit/api/quotes';
+            try {
+                let data = await fetch(api);
+                realData = await data.json();
+                getNewQoutes();
+                console.log(realData[rnum]);
+            } catch (error) {
+
+            }
+        };
+        newQ.addEventListener('click', getNewQoutes);
+        shareit.addEventListener('click', shareNow);
+        getQuotes();
+
+    </script>
+
+</html>

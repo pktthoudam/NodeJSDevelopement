@@ -1,0 +1,6 @@
+To be able to use ES6 module imports in Node.js, set the type property to module in your package.json file.
+
+{
+  "type": "module",
+  // 👇️ rest ...
+}
